@@ -1,20 +1,20 @@
 package Main;
 
 public class cargo_train {
-    protected String num_train;
+    private int num_train;
 
     public cargo_train(){}
-    public cargo_train(String num_train){
+    public cargo_train(int num_train){
         this.num_train = num_train;
     }
 
 //Setters
-    public void setNum_train(String num_train){
+    public void setNum_train(int num_train){
         this.num_train = num_train;
     }
 
 //Getters
-    public String getNum_train() {
+    public int getNum_train() {
         return num_train;
     }
 

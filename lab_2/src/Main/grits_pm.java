@@ -14,7 +14,7 @@ public class grits_pm {
     }
 
 //METHODS
-    public String load_grits(String type_grits, int mass) {
+    public String load(String type_grits, int mass) {
         if (this.type_grits.equals(type_grits) &&
                 (this.capacity + mass <= this.max_capacity)) {
             this.capacity += mass;
@@ -24,7 +24,7 @@ public class grits_pm {
             return "Тип грузов не совпадают или на платформе не хватает мест!";
         }
     }
-    public String unload_grits(String type_grits, int mass) {
+    public String unload(String type_grits, int mass) {
         if (this.type_grits.equals(type_grits) &&
                 (this.capacity - mass >= 0)) {
             this.capacity -= mass;

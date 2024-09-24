@@ -13,7 +13,7 @@ public class avtomobile_pm {
     }
 
 //METHODS
-    public String load_car(String car_name){
+    public String load(String car_name){
         if (this.capacity < this.max_capacity){
             this.cars.add(car_name);
             return "Успещно загружено!";
@@ -22,7 +22,7 @@ public class avtomobile_pm {
             return "На платформе не хватает мест!";
         }
     }
-    public String unload_car(String car_name){
+    public String unload(String car_name){
         if (this.cars.contains(car_name)){
             this.cars.remove(car_name);
             return "Успещно разружена";
@@ -30,7 +30,7 @@ public class avtomobile_pm {
         else {
             return "На платформе нет такого автомобиля";
         }
-    }
+    } 
 
 
 //SETTERS
