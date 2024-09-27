@@ -2,78 +2,69 @@ package Main;
 
 import java.util.LinkedList;
 
-public class container_pm extends platform implements iLoad{
-    private boolean is_Loaded = false;
-    private LinkedList<String> type = new LinkedList<>();
+public class container_pm extends Platform implements Icargo{
 
-    public container_pm(){}
-    public container_pm(boolean is_Loaded, int capacity, String type, int max_capacity){
-        this.is_Loaded = is_Loaded;
-        super.capacity = capacity;
-        super.max_capacity = max_capacity;
-        this.type = type;
-    }
-
-    public container_pm(boolean is_Loaded, int capacity, int num_train){
-        this.is_Loaded = is_Loaded;
-        super.capacity = capacity;
-        super.setNum_train(num_train);
-    }
-
-//GETTERS
-    @Override
-    public int getCapacity() {
-        return super.capacity;
+    public container_pm() {
+        super.Type_cargo.add("Контейнер");
     }
 
     @Override
-    public int getMaxCapacity() {
-        return super.max_capacity;
+    public LinkedList<String> getType_cargo() {
+        return super.Type_cargo;
     }
 
-    public boolean GetIs_Loaded() {
-        return is_Loaded;
-    }
-
-//SETTERS
     @Override
     public void setCapacity(int capacity) {
         super.capacity = capacity;
     }
 
     @Override
-    public void setMaxCapacity(int max_capcity) {
-        super.max_capacity = max_capcity;
+    public int getCapacity() {
+        return super.capacity;
     }
 
-    public void setIs_Loaded(boolean is_Loaded) {
-        this.is_Loaded = is_Loaded;
+    @Override
+    public void setNum_platform(int num_platform) {
+        super.num_platform = num_platform;
+    }
+
+    @Override
+    public int getNum_platform() {
+        return super.num_platform;
+    }
+
+    @Override
+    public void setMax_capacity(int max_capacity) {
+        super.max_capacity = max_capacity;
+    }
+
+    @Override
+    public int getMax_capacity() {
+        return super.max_capacity;
     }
 
 
-
-
-    public void info(){
-        String isloaded;
-        if (this.is_Loaded){
-            isloaded = "Загруженa";
+    @Override
+    public String load(String Type_cargo, int mass) {
+        if ((super.capacity + mass) <= super.max_capacity &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity += mass;
+            return "Успещно загружено!";
         }
         else {
-            isloaded = "Не Загруженa";
+            return "На платформе не хватает мест или на платформу нельза грузить груз токого вида!";
         }
-        String text = "Платформа" + isloaded  + "\n" +
-                "Вес платформы: " + this.getCapacity() + " кг\n" +
-                "платформа в составе поезда: " + this.getNum_train() + "\n";
-        Main.View(text);
-    }
-//METHODS
-    @Override
-    public void load(String type, int mass) {
-        if(super.)
     }
 
     @Override
-    public void unload(String type, int mass) {
-
+    public String unload(String Type_cargo, int mass) {
+        if ((super.capacity - mass) >=0 &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity -= mass;
+            return "Успещно разгружено!";
+        }
+        else {
+            return "На платорме недаостаточно груза или на платформе нет груз такого вида!";
+        }
     }
 }

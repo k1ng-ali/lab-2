@@ -1,63 +1,70 @@
 package Main;
 
-public class liquid_pm extends cargo_train{
-    private String type_liquid;
-    private int capacity;
-    private int max_capacity;
+import java.util.LinkedList;
 
-    public liquid_pm() {}
-    public liquid_pm(String type_liquid, int capacity) {
-        this.type_liquid = type_liquid;
-        this.capacity = capacity;
-    }
-    public liquid_pm(String type_liquid, int capacity, int max_capacity) {
-        this.type_liquid = type_liquid;
-        this.capacity = capacity;
-        this.max_capacity = max_capacity;
+public class liquid_pm extends Platform implements Icargo {
+    public liquid_pm() {
+        super.Type_cargo.add("нефть");
+        super.Type_cargo.add("дизельное топливо");
+        super.Type_cargo.add("мазут");
     }
 
-//METHODS
-    public String load(String type_liquid, int mass){
-        if (this.type_liquid.equals(type_liquid) &&
-                ((this.capacity + mass) <= this.max_capacity)){
-            this.capacity += mass;
-            return "Успещно загружено";
-        }
-        else {
-            return "Тип жидкости не совпадают или на платформе не хватает мест!";
-        }
+    @Override
+    public LinkedList<String> getType_cargo() {
+        return super.Type_cargo;
     }
 
-    public String unload(String type_liquid, int mass){
-        if (this.type_liquid.equals(type_liquid) &&
-                ((this.capacity - mass) >= 0)){
-            this.capacity -= mass;
-            return "Успещно разгружено";
-        }
-        else {
-            return "Тип жидкости не совпадают или на платформе недостаточно жидкостей!";
-        }
-    }
-
-//SETTERS
-    public void setType_liquid(String type_liquid){
-        this.type_liquid = type_liquid;
-    }
+    @Override
     public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-    public void setMaxCapacity(int max_capacity) {
-        this.max_capacity = max_capacity;
+        super.capacity = capacity;
     }
 
-//GETTERS
-    public String getType_liquid() {
-        return type_liquid;
-    }
+    @Override
     public int getCapacity() {
-        return capacity;
+        return super.capacity;
     }
-    public int getMaxCapacity() {
-        return max_capacity;
+
+    @Override
+    public void setNum_platform(int num_platform) {
+        super.num_platform = num_platform;
+    }
+
+    @Override
+    public int getNum_platform() {
+        return super.num_platform;
+    }
+
+    @Override
+    public void setMax_capacity(int max_capacity) {
+        super.max_capacity = max_capacity;
+    }
+
+    @Override
+    public int getMax_capacity() {
+        return super.max_capacity;
+    }
+
+
+    @Override
+    public String load(String Type_cargo, int mass) {
+        if ((super.capacity + mass) <= super.max_capacity &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity += mass;
+            return "Успещно загружено!";
+        } else {
+            return "На платформе не хватает мест или на платформу нельза грузить груз токого вида!";
+        }
+    }
+
+    @Override
+    public String unload(String Type_cargo, int mass) {
+        if ((super.capacity - mass) >= 0 &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity -= mass;
+            return "Успещно разгружено!";
+        } else {
+            return "На платорме недаостаточно груза или на платформе нет груз такого вида!";
+        }
+
     }
 }

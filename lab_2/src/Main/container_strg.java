@@ -1,35 +1,70 @@
 package Main;
 
-public class container_strg extends storage{
-    private boolean is_loaded = false;
-    private int capacity;
+import java.util.LinkedList;
 
-    public container_strg() {}
-    public container_strg(boolean is_loaded, int capacity, String storage_num) {
-        this.is_loaded = is_loaded;
-        this.capacity = capacity;
-        super.setStorage_num(storage_num);
+public class container_strg extends storage implements Icargo{
+
+    public container_strg() {
+        super.Type_cargo.add("Контейнер");
     }
 
-//SETTERS
-    public void setis_loaded(boolean is_loaded) {
-        this.is_loaded = is_loaded;
-    }
-    public void setcapacity(int capacity) {
-        this.capacity = capacity;
-    }
-    public void GetStorage_num(String storage_num) {
-        super.setStorage_num(storage_num);
+    @Override
+    public LinkedList<String> getType_cargo() {
+        return Type_cargo;
     }
 
-//GETTERS
-    public int getcapacity() {
-        return capacity;
+    @Override
+    public void setCapacity(int capacity) {
+        super.capacity = capacity;
     }
-    public boolean GetIs_loaded() {
-        return is_loaded;
+
+    @Override
+    public int getCapacity() {
+        return super.capacity;
     }
-    public String GetStorage_num() {
-        return super.getStorage_num();
+
+    @Override
+    public void setNum_storage(int num_storage) {
+        super.num_storage = num_storage;
+    }
+
+    @Override
+    public int getNum_storage() {
+        return super.num_storage;
+    }
+
+    @Override
+    public void setMax_capacity(int max_capacity) {
+        super.max_capacity = max_capacity;
+    }
+
+    @Override
+    public int getMax_capacity() {
+        return super.max_capacity;
+    }
+
+
+    @Override
+    public String load(String Type_cargo, int mass) {
+        if ((super.capacity + mass) <= super.max_capacity &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity += mass;
+            return "Успещно загружено!";
+        }
+        else {
+            return "На складе не хватает мест или на склад нельза грузить груз токого вида!";
+        }
+    }
+
+    @Override
+    public String unload(String Type_cargo, int mass) {
+        if ((super.capacity - mass) >=0 &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity -= mass;
+            return "Успещно разгружено!";
+        }
+        else {
+            return "На складе недаостаточно груза или на складе нет груз такого вида!";
+        }
     }
 }

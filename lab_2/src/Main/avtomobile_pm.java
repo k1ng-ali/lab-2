@@ -2,50 +2,71 @@ package Main;
 
 import java.util.LinkedList;
 
-public class avtomobile_pm {
-    LinkedList<String> cars = new LinkedList<>();
-    int capacity;
-    int max_capacity;
-
-    public avtomobile_pm(int capacity, int max_capacity) {
-        this.capacity = capacity;
-        this.max_capacity = max_capacity;
+public class avtomobile_pm extends Platform implements Icargo{
+    public avtomobile_pm() {
+        super.Type_cargo.addFirst("Автомобил");
     }
 
-//METHODS
-    public String load(String car_name){
-        if (this.capacity < this.max_capacity){
-            this.cars.add(car_name);
+    @Override
+    public LinkedList<String> getType_cargo() {
+        return super.Type_cargo;
+    }
+
+    public void add_Type_cargo(String type_cargo) {
+        super.Type_cargo.add(type_cargo);
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
+        super.capacity = capacity;
+    }
+
+    @Override
+    public int getCapacity() {
+        return super.capacity;
+    }
+
+    @Override
+    public void setNum_platform(int num_platform) {
+        super.num_platform = num_platform;
+    }
+
+    @Override
+    public int getNum_platform() {
+        return super.num_platform;
+    }
+
+    @Override
+    public void setMax_capacity(int max_capacity) {
+        super.max_capacity = max_capacity;
+    }
+
+    @Override
+    public int getMax_capacity() {
+        return super.max_capacity;
+    }
+
+
+    @Override
+    public String load(String Type_cargo, int mass) {
+        if ((super.capacity + mass) <= super.max_capacity &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity += mass;
             return "Успещно загружено!";
+        } else {
+            return "На платформе не хватает мест или на платформу нельза грузить груз токого вида!";
         }
-        else {
-            return "На платформе не хватает мест!";
-        }
-    }
-    public String unload(String car_name){
-        if (this.cars.contains(car_name)){
-            this.cars.remove(car_name);
-            return "Успещно разружена";
-        }
-        else {
-            return "На платформе нет такого автомобиля";
-        }
-    } 
-
-
-//SETTERS
-    public void set_capacity(int capacity) {
-        this.capacity = capacity;
-    }
-    public void setMaxCapacity(int max_capacity) {
-        this.max_capacity = max_capacity;
     }
 
-//GETTERS
-    public int get_capacity() {
-        return capacity;
-    }
-    public int getMaxCapacity() {
-        return max_capacity;
+    @Override
+    public String unload(String Type_cargo, int mass) {
+        if ((super.capacity - mass) >= 0 &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity -= mass;
+            return "Успещно разгружено!";
+        } else {
+            return "На платорме недаостаточно груза или на платформе нет груз такого вида!";
+        }
+
     }
 }

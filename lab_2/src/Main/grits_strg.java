@@ -2,9 +2,9 @@ package Main;
 
 import java.util.LinkedList;
 
-public class grits_pm extends Platform implements Icargo{
+public class grits_strg extends storage implements Icargo{
 
-    public grits_pm() {
+    public grits_strg() {
         super.Type_cargo.add("нефть");
         super.Type_cargo.add("дизельное топливо");
         super.Type_cargo.add("мазут");
@@ -26,13 +26,13 @@ public class grits_pm extends Platform implements Icargo{
     }
 
     @Override
-    public void setNum_platform(int num_platform) {
-        super.num_platform = num_platform;
+    public void setNum_storage(int num_storage) {
+        super.num_storage = num_storage;
     }
 
     @Override
-    public int getNum_platform() {
-        return super.num_platform;
+    public int getNum_storage() {
+        return super.num_storage;
     }
 
     @Override
@@ -52,20 +52,21 @@ public class grits_pm extends Platform implements Icargo{
                 super.Type_cargo.contains(Type_cargo)) {
             super.capacity += mass;
             return "Успещно загружено!";
-        } else {
-            return "На платформе не хватает мест или на платформу нельза грузить груз токого вида!";
+        }
+        else {
+            return "На складе не хватает мест или на склад нельза грузить груз токого вида!";
         }
     }
 
     @Override
     public String unload(String Type_cargo, int mass) {
-        if ((super.capacity - mass) >= 0 &&
+        if ((super.capacity - mass) >=0 &&
                 super.Type_cargo.contains(Type_cargo)) {
             super.capacity -= mass;
             return "Успещно разгружено!";
-        } else {
-            return "На платорме недаостаточно груза или на платформе нет груз такого вида!";
         }
-
+        else {
+            return "На складе недаостаточно груза или на складе нет груз такого вида!";
+        }
     }
 }

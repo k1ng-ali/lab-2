@@ -1,58 +1,72 @@
 package Main;
 
-public class liquid_strg {
-    private String type_liquid;
-    private int capacity;
-    private int max_capacity;
+import java.util.LinkedList;
 
-    public liquid_strg(){}
-    public liquid_strg(String type_liquid, int capacity, int max_capacity) {
-        this.type_liquid = type_liquid;
-        this.capacity = capacity;
-        this.max_capacity = max_capacity;
+public class liquid_strg extends storage implements Icargo{
+
+    public liquid_strg() {
+        super.Type_cargo.add("нефть");
+        super.Type_cargo.add("дизельное топливо");
+        super.Type_cargo.add("мазут");
     }
 
-//METHODS
-    public String load(String type_liquid, int mass){
-        if (this.type_liquid.equals(type_liquid) &&
-                (this.capacity + mass) <= this.max_capacity){
-            this.capacity += mass;
-            return "Успешно загружено";
-        }
-        else {
-            return "Тип жидкости не совпадают или на складе не хватает мест!";
-        }
-    }
-    public String unload(String type_liquid, int mass){
-        if (this.type_liquid.equals(type_liquid) &&
-        (this.capacity - mass) >= 0){
-            this.capacity -= mass;
-            return "Успещно разгружено";
-        }
-        else {
-            return "Тип жидкости не совпадают или на складе недостаточно жидкостей!";
-        }
+    @Override
+    public LinkedList<String> getType_cargo() {
+        return super.Type_cargo;
     }
 
-    //SETTERS
-    public void setType_liquid(String type_liquid){
-        this.type_liquid = type_liquid;
-    }
+    @Override
     public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-    public void setMaxCapacity(int max_capacity) {
-        this.max_capacity = max_capacity;
+        super.capacity = capacity;
     }
 
-    //GETTERS
-    public String getType_liquid() {
-        return type_liquid;
-    }
+    @Override
     public int getCapacity() {
-        return capacity;
+        return super.capacity;
     }
-    public int getMaxCapacity() {
-        return max_capacity;
+
+    @Override
+    public void setNum_storage(int num_storage) {
+        super.num_storage = num_storage;
+    }
+
+    @Override
+    public int getNum_storage() {
+        return super.num_storage;
+    }
+
+    @Override
+    public void setMax_capacity(int max_capacity) {
+        super.max_capacity = max_capacity;
+    }
+
+    @Override
+    public int getMax_capacity() {
+        return super.max_capacity;
+    }
+
+
+    @Override
+    public String load(String Type_cargo, int mass) {
+        if ((super.capacity + mass) <= super.max_capacity &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity += mass;
+            return "Успещно загружено!";
+        }
+        else {
+            return "На складе не хватает мест или на склад нельза грузить груз токого вида!";
+        }
+    }
+
+    @Override
+    public String unload(String Type_cargo, int mass) {
+        if ((super.capacity - mass) >=0 &&
+                super.Type_cargo.contains(Type_cargo)) {
+            super.capacity -= mass;
+            return "Успещно разгружено!";
+        }
+        else {
+            return "На складе недаостаточно груза или на складе нет груз такого вида!";
+        }
     }
 }
