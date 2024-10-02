@@ -5,9 +5,9 @@ import java.util.LinkedList;
 public class grits_pm extends Platform implements Icargo{
 
     public grits_pm() {
-        super.Type_cargo.add("нефть");
-        super.Type_cargo.add("дизельное топливо");
-        super.Type_cargo.add("мазут");
+        super.Type_cargo.add("зерно");
+        super.Type_cargo.add("уголь");
+        super.Type_cargo.add("песок");
     }
 
     @Override

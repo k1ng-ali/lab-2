@@ -5,30 +5,161 @@ import java.util.Scanner;
 
 // Демонстрация программы
 public class Main {
-    public static void main(String[] args) {
+    public void main(String[] args) {
+        model();
     }
 
-    public void load_to_platform(Train train, storages storages){
+    public void model(){
+        Train train = new Train();
+        storages storage = new storages();
+        navigation_main(train, storage);
+        view("Выход из программы...");
+    }
+
+    public void navigation_main(Train train, storages strg){
         int choise;
-        int n = 0;
         do {
-            LinkedList<String> products = new LinkedList<>();
-            for (storage storage: storages.getStorages())
+            int num_pm, num_strg, capacity;
+            String cargo;
+            view("Вывести информацию платформ. . . . . . . . . . . . . . . . . 1\n");
+            view("Вывести информацию складов . . . . . . . . . . . . . . . . . 2\n");
+            view("Добавить платформу . . . . . . . . . . . . . . . . . . . . . 3\n");
+            view("добавить склад . . . . . . . . . . . . . . . . . . . . . . . 4\n");
+            view("Загрузить груз на платформу. . . . . . . . . . . . . . . . . 5\n");
+            view("Разгрузить груз из платформы . . . . . . . . . . . . . . . . 6\n");
+            view("Выход из программы . . . . . . . . . . . . . . . . . . . . . 7\n");
+            view("\nВыберите действие: ");
+
+            choise = get_int();
+            switch (choise)
             {
-                if (storage.getCapacity() > 0) {
-                    for (String prd : storage.getType_cargo())
-                        addIfNotPresent(products, prd);
+                case 1:
+                    info_platform(train);
+                    break;
+                case 2:
+                    info_strg(strg);
+                    break;
+                case 3:
+                    add_platform(train);
+                    break;
+                case 4:
+                    add_storage(strg);
+                    break;
+                case 5:
+                    view("Введите Номер склада: ");
+                    num_strg = get_int();
+                    view("Введите номер платформы: ");
+                    num_pm = get_int();
+                    view("Введите тип груза: ");
+                    cargo = controller();
+                    view("Введите масса груза: ");
+                    capacity = get_int();
+                    if (load_plt(train, strg, num_pm, num_strg, capacity, cargo))
+                        view("Успещно загружено\n");
+                    else view("Ощибка, Неправильный ввод данных или недостаточно мест на платформе или недостаточно грузов на складе\n");
+                    break;
+                case 6:
+                    view("Введите Номер склада: ");
+                    num_strg = get_int();
+                    view("Введите номер платформы: ");
+                    num_pm = get_int();
+                    view("Введите тип груза: ");
+                    cargo = controller();
+                    view("Введите масса груза: ");
+                    capacity = get_int();
+                    if (unload_plt(train, strg, num_pm, num_strg, capacity, cargo))
+                        view("Успещно загружено\n");
+                    else view("Ощибка, Неправильный ввод данных или недостаточно мест на платформе или недостаточно грузов на складе\n");
+                    break;
+                default:
+                    view("Ощибка ввода! Введите целое число от 1 до 7 включительно\n");
+
+            }
+        }while(choise != 7);
+    }
+
+
+    public boolean unload_plt(Train train, storages storages, int num_pm, int num_strg, int capacity, String cargo){
+        boolean f = false;
+        for (storage storage: storages.getStorages()){
+            if (storage.getNum_storage() == num_strg) {
+                for (Platform platform: train.getPlatforms())
+                {
+                    if (platform.getNum_platform() == num_pm) {
+                        if (storage.getType_cargo().contains(cargo) && platform.getType_cargo().contains(cargo) &&
+                                (storage.getMax_capacity() >= storage.getCapacity() + capacity ) &&
+                                (platform.getCapacity() >= capacity))
+                        {
+                            storage.setCapacity(storage.getCapacity() + capacity);
+                            platform.setCapacity(platform.getCapacity() - capacity);
+                            f = true;
+                        }
+                    }
                 }
             }
-            view("Доступные продукты: \n");
-            for (String key: products)
-                view(key + ", ");
+        }
+        return f;
+    }
 
+    public boolean load_plt(Train train, storages storages, int num_pm, int num_strg, int capacity, String cargo)
+    {
+        boolean f = false;
+        for (storage storage: storages.getStorages()){
+            if (storage.getNum_storage() == num_strg) {
+                for (Platform platform: train.getPlatforms())
+                {
+                    if (platform.getNum_platform() == num_pm) {
+                        if (storage.getType_cargo().contains(cargo) && platform.getType_cargo().contains(cargo) &&
+                                (storage.getCapacity() >= capacity ) &&
+                                (platform.getMax_capacity() >= platform.getCapacity()+capacity))
+                        {
+                            storage.setCapacity(storage.getCapacity() - capacity);
+                            platform.setCapacity(platform.getCapacity() + capacity);
+                            f = true;
+                        }
+                    }
+                }
+            }
+        }
+        return f;
+    }
 
+    public void info_platform(Train train){
+        view("%-37s| %-33s| %-26s |%40s%n",
+                "Номер платформы", "Вместимость", "Масса/колчиство грузов", "Тип грузов");
+        view("=========================================================================================================================%n");
+        for(Platform platform: train.getPlatforms()){
+            view("%-37s| %-33s| %-26s |%40s%n",
+                    platform.getNum_platform(),
+                    platform.getMax_capacity(),
+                    platform.getCapacity(),
+                    String.join(", ", platform.getType_cargo()));
+        }
+        view("=========================================================================================================================%n");
+    }
 
+    public void info_trains(LinkedList<Train> train){
+        view("%-37s| %-37s%n", "Номер поезда", "количество платформ");
+        view("===========================================================================%n");
+        for (Train t: train){
+            view("%-37s| %-37s%n", t.getNum_Train(), t.getPlatforms().size());
+        }
+        view("===========================================================================%n");
+    }
 
+    public void info_strg(storages storages){
+        view("%-37s| %-33s| %-26s |%40s%n",
+                "Номер склада", "Вместимость", "Масса/колчиство грузов", "Тип грузов");
+        view("=========================================================================================================================%n");
+        for (storage storage: storages.getStorages()){
+            view("%-37s| %-33s| %-26s |%40s%n",
+                    storage.getNum_storage(),
+                    storage.getMax_capacity(),
+                    storage.getCapacity(),
+                    String.join(", ", storage.getType_cargo()));
+        }
+        view("=========================================================================================================================%n");
 
-        }while(choise!=5);
     }
 
     public storages add_storage(storages storages){
@@ -122,7 +253,7 @@ public class Main {
                     container_pm container= new container_pm();
                     view("Введите номер платформы: ");
                     container.setNum_platform(get_int());
-                    view("максимальный емкость платформы равна 1");
+                    view("максимальный емкость платформы равна 1\n");
                     container.setMax_capacity(1);
                     view("Успещно добавлено!\n");
                     train.add_platform(container);
@@ -200,15 +331,15 @@ public class Main {
 
 
     // VIEW
-    public void view(String key){
-        System.out.println(key);
+    public void view(String key, Object... args){
+        System.out.printf(key, args);
     }
 
     public void view_type_platforms() {
-        view("для нефть, дизельное топливо, мазут. . . . . . . . . . . 1");
-        view("для зерно, уголь, песок, . . . . . . . . . . . . . . . . 2");
-        view("для контейнеров. . . . . . . . . . . . . . . . . . . . . 3");
-        view("для автомобилей. . . . . . . . . . . . . . . . . . . . . 4");
+        view("для нефть, дизельное топливо, мазут. . . . . . . . . . . 1\n");
+        view("для зерно, уголь, песок, . . . . . . . . . . . . . . . . 2\n");
+        view("для контейнеров. . . . . . . . . . . . . . . . . . . . . 3\n");
+        view("для автомобилей. . . . . . . . . . . . . . . . . . . . . 4\n");
         view("Отменить . . . . . . . . . . . . . . . . . . . . . . . . 5\n\n");
     }
 
