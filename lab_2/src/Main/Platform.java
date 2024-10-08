@@ -2,11 +2,11 @@ package Main;
 
 import java.util.LinkedList;
 
-public abstract class Platform {
-    protected LinkedList<String> Type_cargo = new LinkedList<>();
+public abstract class Platform implements Icargo{
     protected int num_platform;
     protected int capacity;
     protected int max_capacity;
+    protected boolean IsLoaded;
 
     public Platform(int num_platform, int capacity, int max_capacity) {
         this.num_platform = num_platform;
@@ -15,14 +15,20 @@ public abstract class Platform {
     }
     public Platform() {}
 
-    public abstract LinkedList<String> getType_cargo();
+    public abstract String GetTypeCargo();
 
-    public abstract void setCapacity(int capacity);
-    public abstract int getCapacity();
+    public int getCapacity(){
+        return this.capacity;
+    };
 
-    public abstract void setMax_capacity(int max_capacity);
-    public abstract int getMax_capacity();
+    public  int getMax_capacity(){
+        return this.max_capacity;
+    };
 
-    public abstract void setNum_platform(int num_platform);
-    public abstract int getNum_platform();
+    public void setNum_platform(int num_platform){
+        this.num_platform = num_platform;
+    };
+    public int getNum_platform(){
+        return this.num_platform;
+    };
 }
