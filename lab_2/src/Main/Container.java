@@ -1,11 +1,13 @@
 package Main;
 
 public class Container {
+    private ID id;
     private int size;
     private int mass;
 
     public Container()
     {
+        id = new ID("co");
         int choise;
         do {
             Main.view("Размер: 20 фут, Вес: 30 тонн . . . . . . . . . . 1\n");
@@ -30,6 +32,11 @@ public class Container {
     public int GetMass(){
         return this.mass;
     }
+
+    public ID getId() {
+        return id;
+    }
+
     public int GetSize(){
         return this.size;
     }

@@ -34,7 +34,7 @@ public class LiquidStrg extends Storage{
 
     public Boolean unload(Liquid liquid) {
         if (this.liquid.getName().equalsIgnoreCase(liquid.getName())&&
-                0>=super.capacity - liquid.getMass()) {
+                super.capacity - liquid.getMass()>=0) {
             this.liquid.subMass(liquid.getMass());
             super.capacity -= liquid.getMass();
             return true;

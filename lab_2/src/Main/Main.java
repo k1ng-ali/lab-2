@@ -103,16 +103,14 @@ public class Main {
                             for (Platform platform : train.getPlatforms()) {
                                 if (platform.getNum_platform() == numPm) {
                                     if (platform instanceof LiquidPm) {
-                                        LiquidPm liquidPm = (LiquidPm) platform;
-                                        liquidPm.unload(liquid);
+                                        ((LiquidPm) platform).unload(liquid);
                                     }
                                 }
                             }
                             for (Storage storage: storages.getStorages()){
                                 if (storage.getNum_storage() == numStrg) {
                                     if (storage instanceof LiquidStrg){
-                                        LiquidStrg liquidStrg = (LiquidStrg) storage;
-                                        liquidStrg.load(liquid);
+                                        ((LiquidStrg) storage).load(liquid);
                                     }
                                 }
                             }
@@ -151,16 +149,14 @@ public class Main {
                             for (Platform platform : train.getPlatforms()) {
                                 if (platform.getNum_platform() == numPm) {
                                     if (platform instanceof GritsPm) {
-                                        GritsPm gritsPm = (GritsPm) platform;
-                                        gritsPm.unload(grits);
+                                        ((GritsPm) platform).unload(grits);
                                     }
                                 }
                             }
                             for (Storage storage: storages.getStorages()){
                                 if (storage.getNum_storage() == numStrg) {
                                     if (storage instanceof GritsStrg) {
-                                        GritsStrg gritsStrg = (GritsStrg) storage;
-                                        gritsStrg.load(grits);
+                                        ((GritsStrg) storage).load(grits);
                                     }
                                 }
                             }
@@ -198,16 +194,14 @@ public class Main {
                             for (Platform platform : train.getPlatforms()) {
                                 if (platform.getNum_platform() == numPm) {
                                     if (platform instanceof ContainerPm) {
-                                        ContainerPm containerPm = (ContainerPm) platform;
-                                        containerPm.unload(container);
+                                        ((ContainerPm) platform).unload(container);
                                     }
                                 }
                             }
                             for (Storage storage: storages.getStorages()){
                                 if (storage.getNum_storage() == numStrg) {
                                     if (storage instanceof ContainerStrg) {
-                                        ContainerStrg containerStrg = (ContainerStrg) storage;
-                                        containerStrg.load(container);
+                                        ((ContainerStrg) storage).load(container);
                                     }
                                 }
                             }
@@ -328,16 +322,14 @@ public class Main {
                             for (Platform platform : train.getPlatforms()) {
                                 if (platform.getNum_platform() == numPm) {
                                     if (platform instanceof LiquidPm) {
-                                        LiquidPm liquidPm = (LiquidPm) platform;
-                                        liquidPm.load(liquid);
+                                        ((LiquidPm) platform).load(liquid);
                                     }
                                 }
                             }
                             for (Storage storage: storages.getStorages()){
                                 if (storage.getNum_storage() == numStrg) {
                                     if (storage instanceof LiquidStrg){
-                                        LiquidStrg liquidStrg = (LiquidStrg) storage;
-                                        liquidStrg.unload(liquid);
+                                        ((LiquidStrg) storage).unload(liquid);
                                     }
                                 }
                             }
@@ -376,16 +368,14 @@ public class Main {
                             for (Platform platform : train.getPlatforms()) {
                                 if (platform.getNum_platform() == numPm) {
                                     if (platform instanceof GritsPm) {
-                                        GritsPm gritsPm = (GritsPm) platform;
-                                        gritsPm.load(grits);
+                                        ((GritsPm) platform).load(grits);
                                     }
                                 }
                             }
                             for (Storage storage: storages.getStorages()){
                                 if (storage.getNum_storage() == numStrg) {
                                     if (storage instanceof GritsStrg) {
-                                        GritsStrg gritsStrg = (GritsStrg) storage;
-                                        gritsStrg.unload(grits);
+                                        ((GritsStrg) storage).unload(grits);
                                     }
                                 }
                             }
@@ -423,16 +413,14 @@ public class Main {
                             for (Platform platform : train.getPlatforms()) {
                                 if (platform.getNum_platform() == numPm) {
                                     if (platform instanceof ContainerPm) {
-                                        ContainerPm containerPm = (ContainerPm) platform;
-                                        containerPm.load(container);
+                                        ((ContainerPm) platform).load(container);
                                     }
                                 }
                             }
                             for (Storage storage: storages.getStorages()){
                                 if (storage.getNum_storage() == numStrg) {
                                     if (storage instanceof ContainerStrg) {
-                                        ContainerStrg containerStrg = (ContainerStrg) storage;
-                                        containerStrg.unload(container);
+                                        ((ContainerStrg) storage).unload(container);
                                     }
                                 }
                             }

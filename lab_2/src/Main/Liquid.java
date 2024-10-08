@@ -1,10 +1,12 @@
 package Main;
 
 public class Liquid {
+    private ID id;
     private String name;
     private int mass;
 
     public Liquid(){
+        id = new ID("li");
         int choise;
         do {
             Main.view("Нефть. . . . . . . . . . . . . . . . . . . . 1\n");
@@ -29,6 +31,9 @@ public class Liquid {
         }while (choise != 1 && choise != 3 && choise != 2);
     }
 
+    public ID getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }

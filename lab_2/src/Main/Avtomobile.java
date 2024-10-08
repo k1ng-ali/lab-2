@@ -1,10 +1,12 @@
 package Main;
 
 public class Avtomobile {
-    String name;
-    int mass;
+    private ID id;
+    private String name;
+    private int mass;
 
     public Avtomobile() {
+        id = new ID("av");
         do {
             try {
                 Main.view("Введите модел автомобиля: ");
@@ -26,4 +28,5 @@ public class Avtomobile {
 
     public String getName() {return name;};
     public int getMass() {return mass;}
+    public ID getID() {return id;}
 }
