@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 // 1 РАЗРАБОТАВАТЬ МЕТОД ДОБАВЛЕНИЕ АВТОМОЬИЛЯ НА СКЛАД
-// 2 ПЕРЕСМОТРЕТЬ МЕТОДЫ ЗАГРУЗКИ И ВЫГРУЗКИ ТОАВРОВ.
 
 // Демонстрация программы
 public class Main {
@@ -14,12 +13,12 @@ public class Main {
 
     public static void model(){
         Train train = new Train();
-        storages storage = new storages();
+        Storages storage = new Storages();
         navigation_main(train, storage);
         view("Выход из программы...");
     }
 
-    public static void navigation_main(Train train, storages strg){
+    public static void navigation_main(Train train, Storages strg){
         int choise;
         do {
             int num_pm, num_strg, capacity;
@@ -28,9 +27,10 @@ public class Main {
             view("Вывести информацию складов . . . . . . . . . . . . . . . . . 2\n");
             view("Добавить платформу . . . . . . . . . . . . . . . . . . . . . 3\n");
             view("добавить склад . . . . . . . . . . . . . . . . . . . . . . . 4\n");
-            view("Загрузить груз на платформу. . . . . . . . . . . . . . . . . 5\n");
-            view("Разгрузить груз из платформы . . . . . . . . . . . . . . . . 6\n");
-            view("Выход из программы . . . . . . . . . . . . . . . . . . . . . 7\n");
+            view("Добавить автомобилья на склад. . . . . . . . . . . . . . . . 5\n");
+            view("Загрузить груз на платформу. . . . . . . . . . . . . . . . . 6\n");
+            view("Разгрузить груз из платформы . . . . . . . . . . . . . . . . 7\n");
+            view("Выход из программы . . . . . . . . . . . . . . . . . . . . . 8\n");
             view("\nВыберите действие: ");
 
             choise = get_int();
@@ -49,24 +49,35 @@ public class Main {
                     add_storage(strg);
                     break;
                 case 5:
-                    if (load_plt(train, strg))
-                        view("Успещно загружено\n");
-                    else view("Ощибка, Неправильный ввод данных или недостаточно мест на платформе или недостаточно грузов на складе\n");
+                    try {
+                        add_avto(strg);
+                    }
+                    catch (Exception e)
+                    {view(e.getMessage());}
                     break;
                 case 6:
-                    if (unload_plt(train, strg))
-                        view("Успещно загружено\n");
-                    else view("Ощибка, Неправильный ввод данных или недостаточно мест на платформе или недостаточно грузов на складе\n");
+                    try {
+                        load_plt(train, strg);
+                    }
+                    catch (Exception e)
+                    {view(e.getMessage());}
+                    break;
+                case 7:
+                    try{
+                        unload_plt(train, strg);
+                    }
+                    catch (Exception e)
+                        {view(e.getMessage());}
                     break;
                 default:
                     view("Ощибка ввода! Введите целое число от 1 до 7 включительно\n");
 
             }
-        }while(choise != 7);
+        }while(choise != 8);
     }
 
 
-    public static boolean unload_plt(Train train, storages storages){
+    public static boolean unload_plt(Train train, Storages storages){
         boolean f = false;
         int choise;
         do {
@@ -226,7 +237,7 @@ public class Main {
                             platform.DisplayInfo();
                         }
                     }
-                    Avtomobile avtomobile = new Avtomobile();
+                    Avtomobile avtomobile;
                     String typeCargo1 = "Автомобиль";
 
                     do {
@@ -251,7 +262,7 @@ public class Main {
                                                 if (storage instanceof AvtomobileStrg) {
                                                     AvtomobileStrg avtomobileStrg = (AvtomobileStrg) storage;
                                                     try{
-                                                        avtomobileStrg.unload(avtomobile1);
+                                                        avtomobileStrg.load(avtomobile1);
                                                         flag = true;
                                                     }
                                                     catch (Exception e) {
@@ -284,7 +295,7 @@ public class Main {
         return f;
     }
 
-    public static boolean load_plt(Train train, storages storages)
+    public static boolean load_plt(Train train, Storages storages)
     {
         boolean f = false;
         int choise;
@@ -446,7 +457,7 @@ public class Main {
                             platform.DisplayInfo();
                         }
                     }
-                    Avtomobile avtomobile = new Avtomobile();
+                    Avtomobile avtomobile;
                     String typeCargo1 = "Автомобиль";
 
 
@@ -522,7 +533,7 @@ public class Main {
         view("===========================================================================%n");
     }
 
-    public static void info_strg(storages storages){
+    public static void info_strg(Storages storages){
         view("%-37s| %-33s| %-26s |%40s%n",
                 "Номер склада",  "Вместимость (кг/шт)", "Масса (кг/шт)", "Груз");
         view("=========================================================================================================================%n");
@@ -533,27 +544,30 @@ public class Main {
 
     }
 
-    public static storages add_storage(storages storages){
+    public static Storages add_storage(Storages storages){
         int choise;
         do {
             view_type_platforms();
             view("Выберите тип склад для хранение:\n");
             choise = get_int();
             int num_strg;
+            boolean f = true;
 
             switch (choise){
                 case 1:
                     do {
+                        f = true;
                         view("Введите номер склада: ");
                         num_strg = get_int();
                         for(Storage storage: storages.getStorages()){
                             if (storage.getNum_storage() == num_strg){
                                 view("Склад с номером " + num_strg + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     LiquidStrg liquid = new LiquidStrg();
                     liquid.setNum_storage(num_strg);
                     view("Введите общая масса груза на складе: ");
@@ -562,17 +576,20 @@ public class Main {
                     storages.add_storage(liquid);
                     break;
                 case 2:
+                    f = true;
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_strg = get_int();
                         for(Storage storage: storages.getStorages()){
                             if (storage.getNum_storage() == num_strg){
                                 view("Склад с номером " + num_strg + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     GritsStrg grits = new GritsStrg();
                     grits.setNum_storage(num_strg);
                     view("Введите общая масса груза на складе: ");
@@ -582,16 +599,18 @@ public class Main {
                     break;
                 case 3:
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_strg = get_int();
                         for(Storage storage: storages.getStorages()){
                             if (storage.getNum_storage() == num_strg){
                                 view("Склад с номером " + num_strg + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     ContainerStrg container = new ContainerStrg();
                     container.setNum_storage(num_strg);
                     view("Введите колчество контейнеров в складе: ");
@@ -601,16 +620,18 @@ public class Main {
                     break;
                 case 4:
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_strg = get_int();
                         for(Storage storage: storages.getStorages()){
                             if (storage.getNum_storage() == num_strg){
                                 view("Склад с номером " + num_strg + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     AvtomobileStrg avtomobile = new AvtomobileStrg();
                     avtomobile.setNum_storage(num_strg);
                     view("Склад успещно создан!\n");
@@ -632,20 +653,23 @@ public class Main {
             view("Выберите тип платформы: ");
             choise = get_int();
             int num_plt;
+            boolean f = true;
 
             switch (choise) {
                 case 1:
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_plt = get_int();
                         for(Platform platform: train.getPlatforms()){
                             if (platform.getNum_platform() == num_plt){
                                 view("Платформа с номером " + num_plt + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     LiquidPm liquid = new LiquidPm();
                     liquid.setNum_platform(num_plt);
                     view("Успещно добавлено!\n");
@@ -653,16 +677,18 @@ public class Main {
                     break;
                 case 2:
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_plt = get_int();
                         for(Platform platform: train.getPlatforms()){
                             if (platform.getNum_platform() == num_plt){
                                 view("Платформа с номером " + num_plt + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     GritsPm grits = new GritsPm();
                     grits.setNum_platform(num_plt);
                     view("Успещно добавлено!\n");
@@ -670,16 +696,18 @@ public class Main {
                     break;
                 case 3:
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_plt = get_int();
                         for(Platform platform: train.getPlatforms()){
                             if (platform.getNum_platform() == num_plt){
                                 view("Платформа с номером " + num_plt + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     ContainerPm container = new ContainerPm();
                     container.setNum_platform(num_plt);
                     view("Успещно добавлено!\n");
@@ -687,16 +715,18 @@ public class Main {
                     break;
                 case 4:
                     do {
+                        f = true;
                         view("Введите номер платформы: ");
                         num_plt = get_int();
                         for(Platform platform: train.getPlatforms()){
                             if (platform.getNum_platform() == num_plt){
                                 view("Платформа с номером " + num_plt + "Уже существует!");
-                                continue;
+                                f = false;
+                                break;
                             }
                         }
                         break;
-                    }while (true);
+                    }while (!f);
                     AvtomobilePm avtomobile = new AvtomobilePm();
                     avtomobile.setNum_platform(num_plt);
                     view("Успещно добавлено!\n");
@@ -709,6 +739,83 @@ public class Main {
             }
         }while (choise!=5);
         return train;
+    }
+
+    public static Storages add_avto(Storages storage) {
+        int choise;
+        boolean f = false;
+        do {
+            view("Добавить авто. . . . . . . . . . . . . . . . . . . 1\n");
+            view("Добавить несколько авто одного моделя. . . . . . . 2\n");
+            view("Выход в меню . . . . . . . . . . . . . . . . . . . 3\n");
+            choise = get_int();
+            int num_strg;
+            switch (choise) {
+                case 1:
+                    view("Доступные склады: ");
+                    for (Storage storage1: storage.getStorages()){
+                        if (storage1 instanceof AvtomobileStrg){
+                            storage1.DisplayInfo();
+                        }
+                    }
+                    f = false;
+
+                    view("Введите номер склада: ");
+                    num_strg = get_int();
+                    for (Storage storage2: storage.getStorages()){
+                        if (storage2.getNum_storage() == num_strg &&
+                                storage2 instanceof AvtomobileStrg){
+                            Avtomobile avtomobile = new Avtomobile();
+                            ((AvtomobileStrg) storage2).load(avtomobile);
+                            f = true;
+                            break;
+                        }
+                    }
+                    if(!f){
+                        view("Склад по номеру "+num_strg + " не найден!");
+                    }
+                    break;
+                case 2:
+                    view("Доступные склады: ");
+                    for (Storage storage1: storage.getStorages()){
+                        if (storage1 instanceof AvtomobileStrg){
+                            storage1.DisplayInfo();
+                        }
+                    }
+
+                    f = false;
+                    view("Введите номер склада: ");
+                    num_strg = get_int();
+                    String car_name;
+                    int car_mass, cout;
+                    view("Введите модел автомобиля: ");
+                    car_name = controller();
+                    view("Введите масса автомобиля: ");
+                    car_mass = get_int();
+                    view("Введите количества автомобиля: ");
+                    cout = get_int();
+                    for (Storage storage2: storage.getStorages()){
+                        if (storage2.getNum_storage() == num_strg &&
+                                storage2 instanceof AvtomobileStrg){
+                            for (int i = 0; i < cout+1; i++){
+                                Avtomobile avtomobile = new Avtomobile(car_name, car_mass);
+                                ((AvtomobileStrg) storage2).load(avtomobile);
+                            }
+                            f = true;
+                            break;
+                        }
+                    }
+                    if(!f){
+                        view("Склад по номеру "+num_strg + " не найден!");
+                    }
+                    break;
+                default:
+                    view("Введите целое число от 1 до 3 включительно!");
+            }
+            break;
+        }while(choise != 3);
+
+        return storage;
     }
 
     public static Train create_train(){

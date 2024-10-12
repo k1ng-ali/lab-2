@@ -2,11 +2,11 @@ package Main;
 
 import java.util.LinkedList;
 
-public class storages {
+public class Storages {
     private LinkedList<Storage> storages = new LinkedList<Storage>();
 
-    public storages() {}
-    public storages(LinkedList<Storage> storages) {
+    public Storages() {}
+    public Storages(LinkedList<Storage> storages) {
         this.storages = storages;
     }
 

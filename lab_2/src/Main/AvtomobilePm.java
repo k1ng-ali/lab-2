@@ -25,7 +25,7 @@ public class AvtomobilePm extends Platform{
     public Boolean load(Avtomobile avtomobile) {
         if (this.avtomobiles.size() < super.max_capacity) {
             this.avtomobiles.add(avtomobile);
-            super.capacity += avtomobile.getMass();
+            super.capacity += 1;
             return true;
         }
         return false;
@@ -35,7 +35,7 @@ public class AvtomobilePm extends Platform{
     public Boolean unload(Avtomobile avtomobile) {
         if (this.avtomobiles.contains(avtomobile)) {
             this.avtomobiles.remove(avtomobile);
-            super.capacity -= avtomobile.getMass();
+            super.capacity -= 1;
             return true;
         }
         else return false;

@@ -23,7 +23,7 @@ public class AvtomobileStrg extends Storage{
     boolean load(Avtomobile avtomobile) {
         if (this.avtomobiles.size() < super.max_capacity) {
             this.avtomobiles.add(avtomobile);
-            super.capacity += avtomobile.getMass();
+            super.capacity += 1;
             return true;
         }
         else return false;
@@ -32,7 +32,7 @@ public class AvtomobileStrg extends Storage{
     public Boolean unload(Avtomobile avtomobile) {
         if (this.avtomobiles.contains(avtomobile)) {
             this.avtomobiles.remove(avtomobile);
-            super.capacity -= avtomobile.getMass();
+            super.capacity -= 1;
             return true;
         }
         else return false;
