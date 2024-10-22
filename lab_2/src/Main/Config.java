@@ -1,6 +1,7 @@
 package Main;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +11,10 @@ public class Config{
     private Map<String, User> users = new HashMap<>();
     private boolean debugMode;
     private boolean autotestsMode;
+    private String filePath;
 
     public Config(String filePath) throws IOException {
+        this.filePath = filePath;
         Properties props = new Properties();
         FileInputStream input = new FileInputStream(filePath);
         props.load(input);
@@ -47,29 +50,29 @@ public class Config{
         return autotestsMode;
     }
 
-    // Класс пользователя
-    public static class User {
-        private String username;
-        private String password;
-        private String group;
-
-        public User(String username, String password, String group) {
-            this.username = username;
-            this.password = password;
-            this.group = group;
+    public void addUser(User user) throws IOException {
+        if (users.containsKey(user.getUsername())) {
+            throw new IllegalArgumentException("Пользователь с таким логином уже существует!");
         }
 
-        public String getUsername() {
-            return username;
-        }
+        User newUser = new User(user.getUsername(), user.getPassword(), user.getGroup());
+        users.put(user.getUsername(), newUser);
 
-        public String getPassword() {
-            return password;
-        }
+        // Записываем нового пользователя в файл настроек
+        Properties props = new Properties();
+        FileInputStream input = new FileInputStream(filePath);
+        props.load(input);
+        input.close();
 
-        public String getGroup() {
-            return group;
-        }
+        int newUserIndex = users.size();
+        props.setProperty("user" + newUserIndex + ".username", user.getUsername());
+        props.setProperty("user" + newUserIndex + ".password", user.getPassword());
+        props.setProperty("user" + newUserIndex + ".group", user.getGroup());
+
+        FileOutputStream output = new FileOutputStream(filePath);
+        props.store(output, null);
+        output.close();
     }
+
 }
 

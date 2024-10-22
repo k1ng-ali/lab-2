@@ -1,11 +1,12 @@
 package Main;
 
+import java.io.IOException;
 import java.util.LinkedList;
 public class AddObject {
     public static Storages add_storage(Storages storages){
         int choise;
         do {
-            view_type_platforms();
+            ViewInfo.view_type_platforms();
             View.view("Выберите тип склад для хранение:\n");
             choise = Controller.get_int();
             int num_strg;
@@ -107,7 +108,7 @@ public class AddObject {
     public static Train add_platform(Train train) {
         int choise;
         do {
-            view_type_platforms();
+            ViewInfo.view_type_platforms();
             View.view("Выберите тип платформы: ");
             choise = Controller.get_int();
             int num_plt;
@@ -298,5 +299,6 @@ public class AddObject {
             list.add(element);
         }
     }
+
 
 }
