@@ -52,7 +52,7 @@ public class Config{
 
     public void addUser(User user) throws IOException {
         if (users.containsKey(user.getUsername())) {
-            throw new IllegalArgumentException("Пользователь с таким логином уже существует!");
+            throw new IllegalArgumentException("Пользователь с таким логином уже существует!\n");
         }
 
         User newUser = new User(user.getUsername(), user.getPassword(), user.getGroup());

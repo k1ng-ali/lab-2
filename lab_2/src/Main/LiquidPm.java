@@ -5,8 +5,8 @@ public class LiquidPm extends Platform{
 
     public LiquidPm() {
         this.liquid = new Liquid();
-        Main.view("Введите максимальный грузоподьемность платформы: ");
-        super.max_capacity = Main.get_int();
+        View.view("Введите максимальный грузоподьемность платформы: ");
+        super.max_capacity = Controller.get_int();
         super.capacity = 0;
     }
 
@@ -38,7 +38,7 @@ public class LiquidPm extends Platform{
 
     @Override
     public void DisplayInfo() {
-        Main.view("%-37s| %-33s| %-26s |%40s%n",
+        View.view("%-37s| %-33s| %-26s |%40s%n",
                 super.num_platform,
                 super.max_capacity,
                 super.capacity,

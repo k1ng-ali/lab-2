@@ -12,11 +12,11 @@ public class LogIn {
         User user = config.getUser(inputUsername);
 
         if ((user != null) && user.getPassword().equals(inputPassword)) {
-            View.view("Добро пажаловать - " + user.getUsername());
+            View.view("Добро пажаловать - " + user.getUsername() + "\n");
             return user;
         }
         else {
-            View.view("Неверный логин или пароль.");
+            View.view("Неверный логин или пароль. \n");
             return null;
         }
     }
@@ -27,7 +27,7 @@ public class LogIn {
         String inputUsername = Controller.getString();
 
         if (config.getUser(inputUsername) != null) {
-            View.view("Пользоваетль с таким логином уже существует. ");
+            View.view("Пользоваетль с таким логином уже существует. \n");
             return null;
         }
         View.view("Введите новый пароль: ");
@@ -38,9 +38,9 @@ public class LogIn {
 
         try{
             config.addUser(user);
-            View.view("Регисрация успешна. ");
+            View.view("Регисрация успешна. \n");
         }catch (IOException e){
-            View.view("Ощибка при регистрации: " + e.getMessage() );
+            View.view("Ощибка при регистрации: " + e.getMessage() + "\n" );
         }
 
         return user;

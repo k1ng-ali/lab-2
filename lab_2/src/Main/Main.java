@@ -16,7 +16,7 @@ public class Main {
         Config config = new Config("config.properties");
         User user;
         user = Navigation.main_login(config);
-        if (user == null) {
+        if (user != null) {
             Navigation.main_menu(train, storage);
             View.view("Выход из программы...");
         }

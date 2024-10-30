@@ -6,8 +6,8 @@ public class GritsStrg extends Storage{
 
     public GritsStrg() {
         this.grits = new Grits();
-        Main.view("Введите максимальный вместимость склада: ");
-        super.max_capacity = Main.get_int();
+        View.view("Введите максимальный вместимость склада: ");
+        super.max_capacity = Controller.get_int();
         super.capacity = 0;
     }
 
@@ -39,7 +39,7 @@ public class GritsStrg extends Storage{
 
     @Override
     public void DisplayInfo() {
-        Main.view("%-37s| %-33s| %-26s |%40s%n",
+        View.view("%-37s| %-33s| %-26s |%40s%n",
                 super.num_storage,
                 super.max_capacity,
                 super.capacity,

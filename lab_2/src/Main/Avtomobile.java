@@ -7,10 +7,10 @@ public class Avtomobile {
 
     public Avtomobile() {
         id = new ID("av");
-        Main.view("Введите модел автомобиля: ");
-        name = Main.controller();
-        Main.view("Введите масса автомобиля: ");
-        mass = Main.get_int();
+        View.view("Введите модел автомобиля: ");
+        name = Controller.getString();
+        View.view("Введите масса автомобиля: ");
+        mass = Controller.get_int();
     }
 
     public Avtomobile(String name, int mass) {

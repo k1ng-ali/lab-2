@@ -10,10 +10,10 @@ public class Container {
         id = new ID("co");
         int choise;
         do {
-            Main.view("Размер: 20 фут, Вес: 30 тонн . . . . . . . . . . 1\n");
-            Main.view("Размер: 40 фут, Вес: 40 тонн . . . . . . . . . . 2\n");
-            Main.view("\nВыберите размер контейнера: ");
-            choise = Main.get_int();
+            View.view("Размер: 20 фут, Вес: 30 тонн . . . . . . . . . . 1\n");
+            View.view("Размер: 40 фут, Вес: 40 тонн . . . . . . . . . . 2\n");
+            View.view("\nВыберите размер контейнера: ");
+            choise = Controller.get_int();
 
             switch (choise) {
                 case 1:
@@ -25,7 +25,7 @@ public class Container {
                     this.mass = 40000;
                     break;
                 default:
-                    Main.view("Введите целое число от 1 до 2 включительно!");
+                    View.view("Введите целое число от 1 до 2 включительно!");
             }
         }while (choise != 1 && choise != 2);
     }

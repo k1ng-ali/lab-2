@@ -36,7 +36,7 @@ public class ContainerPm extends Platform{
 
     @Override
     public void DisplayInfo() {
-        Main.view("%-37s| %-33s| %-26s |%40s%n",
+        View.view("%-37s| %-33s| %-26s |%40s%n",
                 super.num_platform,
                 super.max_capacity,
                 super.capacity,
