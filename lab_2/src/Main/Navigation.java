@@ -1,7 +1,31 @@
 package Main;
 
 public class Navigation {
-    public static void navigation_main(Train train, Storages strg){
+    public static User main_login(Config config){
+        User user;
+        int choice;
+        do {
+            View.view("Войти . . . . . . . . . . . . . . . . . . . 1\n");
+            View.view("Зарегистрироваться. . . . . . . . . . . . . 2\n");
+            View.view("Выход . . . . . . . . . . . . . . . . . . . 3\n");
+            choice = Controller.get_int();
+
+            switch (choice)
+            {
+                case 1:
+                    user = LogIn.login(config);
+                    if (user != null) {return user;};
+                    break;
+                case 2:
+                    user = LogIn.register(config);
+                    if (user != null){return user;};
+                    break;
+                case 3:
+                    return null;
+            }
+        }while (true);
+    }
+    public static void main_menu(Train train, Storages strg){
         int choise;
         do {
             int num_pm, num_strg, capacity;

@@ -9,11 +9,11 @@ public class Grits {
         id = new ID("gr");
         int choise;
         do {
-            Main.view("Зерно. . . . . . . . . . . . . . 1\n");
-            Main.view("Уголь. . . . . . . . . . . . . . 2\n");
-            Main.view("Песок. . . . . . . . . . . . . . 3\n");
-            Main.view("\nВыберите тип груза: ");
-            choise = Main.get_int();
+            View.view("Зерно. . . . . . . . . . . . . . 1\n");
+            View.view("Уголь. . . . . . . . . . . . . . 2\n");
+            View.view("Песок. . . . . . . . . . . . . . 3\n");
+            View.view("\nВыберите тип груза: ");
+            choise = Controller.get_int();
 
             switch (choise){
                 case 1:
@@ -26,7 +26,7 @@ public class Grits {
                     this.name = "Песок";
                     break;
                 default:
-                    Main.view("Ощибка! Введите от 1 до 3 включительно!");
+                    View.view("Ощибка! Введите от 1 до 3 включительно!");
             }
         }while (choise != 1 && choise != 3 && choise != 2);
     }
