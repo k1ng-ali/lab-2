@@ -3,7 +3,7 @@ package Main;
 import java.io.IOException;
 import java.util.LinkedList;
 public class AddObject {
-    public static Storages add_storage(Storages storages){
+    public static Storages add_storage(Storages storages, boolean debugMode, User user) throws IOException {
         int choise;
         do {
             ViewInfo.view_type_platforms();
@@ -33,6 +33,7 @@ public class AddObject {
                     liquid.setCapacity(Controller.get_int());
                     View.view("Склад успещно создан!\n");
                     storages.add_storage(liquid);
+                    if (debugMode) LogMode.LogWrite("Добавлено склад по номеру "+ liquid.getNum_storage() + " пользователям "  + user.getUsername());
                     break;
                 case 2:
                     f = true;
@@ -55,6 +56,7 @@ public class AddObject {
                     grits.setCapacity(Controller.get_int());
                     View.view("Склад успещно создан!\n");
                     storages.add_storage(grits);
+                    if (debugMode) LogMode.LogWrite("Добавлено склад по номеру "+ grits.getNum_storage() + " пользователям "  + user.getUsername());
                     break;
                 case 3:
                     do {
@@ -76,6 +78,7 @@ public class AddObject {
                     container.setCapacity(Controller.get_int());
                     View.view("Склад успещно создан!");
                     storages.add_storage(container);
+                    if (debugMode) LogMode.LogWrite("Добавлено склад по номеру "+ container.getNum_storage() + " пользователям "  + user.getUsername());
                     break;
                 case 4:
                     do {
@@ -95,6 +98,7 @@ public class AddObject {
                     avtomobile.setNum_storage(num_strg);
                     View.view("Склад успещно создан!\n");
                     storages.add_storage(avtomobile);
+                    if (debugMode) LogMode.LogWrite("Добавлено склад по номеру " + avtomobile.getNum_storage() + " пользователям "  + user.getUsername());
                     break;
                 case 5:
                     break;
@@ -105,7 +109,7 @@ public class AddObject {
         return storages;
     }
 
-    public static Train add_platform(Train train) {
+    public static Train add_platform(Train train, boolean debugMode, User user) throws IOException {
         int choise;
         do {
             ViewInfo.view_type_platforms();
@@ -133,6 +137,7 @@ public class AddObject {
                     liquid.setNum_platform(num_plt);
                     View.view("Успещно добавлено!\n");
                     train.add_platform(liquid);
+                    if (debugMode) LogMode.LogWrite("Добавлено платформа по номеру "+ liquid.getNum_platform() + " пользователям "  + user.getUsername());
                     break;
                 case 2:
                     do {
@@ -152,6 +157,8 @@ public class AddObject {
                     grits.setNum_platform(num_plt);
                     View.view("Успещно добавлено!\n");
                     train.add_platform(grits);
+                    if (debugMode) LogMode.LogWrite("Добавлено платформа по номеру "+ grits.getNum_platform() + " пользователям "  + user.getUsername());
+
                     break;
                 case 3:
                     do {
@@ -171,6 +178,8 @@ public class AddObject {
                     container.setNum_platform(num_plt);
                     View.view("Успещно добавлено!\n");
                     train.add_platform(container);
+                    if (debugMode) LogMode.LogWrite("Добавлено платформа по номеру "+ container.getNum_platform() + " пользователям "  + user.getUsername());
+
                     break;
                 case 4:
                     do {
@@ -190,6 +199,8 @@ public class AddObject {
                     avtomobile.setNum_platform(num_plt);
                     View.view("Успещно добавлено!\n");
                     train.add_platform(avtomobile);
+                    if (debugMode) LogMode.LogWrite("Добавлено платформа по номеру " + avtomobile.getNum_platform() + " пользователям "  + user.getUsername());
+
                     break;
                 case 5:
                     break;
@@ -200,7 +211,7 @@ public class AddObject {
         return train;
     }
 
-    public static Storages add_avto(Storages storage) {
+    public static Storages add_avto(Storages storage,  boolean debugMode, User user) throws IOException {
         int choise;
         boolean f = false;
         do {
@@ -226,6 +237,7 @@ public class AddObject {
                                 storage2 instanceof AvtomobileStrg){
                             Avtomobile avtomobile = new Avtomobile();
                             ((AvtomobileStrg) storage2).load(avtomobile);
+                            if (debugMode) LogMode.LogWrite("Добавлено автомобиль " + avtomobile.getName() + " в склад " + storage2.getNum_storage() + " польхователям " + user);
                             f = true;
                             break;
                         }
@@ -259,6 +271,7 @@ public class AddObject {
                             for (int i = 0; i < cout+1; i++){
                                 Avtomobile avtomobile = new Avtomobile(car_name, car_mass);
                                 ((AvtomobileStrg) storage2).load(avtomobile);
+                                if (debugMode) LogMode.LogWrite("Добавлено автомобиль " + avtomobile.getName() + " в склад " + storage2.getNum_storage() + " польхователям " + user);
                             }
                             f = true;
                             break;

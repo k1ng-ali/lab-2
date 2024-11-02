@@ -1,12 +1,15 @@
 package Main;
 
 public class Grits {
-    private ID id;
     private String name;
     private int mass;
 
+    public Grits(String name, int mass) {
+        this.name = name;
+        this.mass = mass;
+    }
+
     public Grits() {
-        id = new ID("gr");
         int choise;
         do {
             View.view("Зерно. . . . . . . . . . . . . . 1\n");
@@ -36,10 +39,6 @@ public class Grits {
     }
     public int getMass() {
         return mass;
-    }
-
-    public ID getId() {
-        return id;
     }
 
     public void setMass(int mass) {

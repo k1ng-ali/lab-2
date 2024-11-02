@@ -2,7 +2,7 @@ package Main;
 
 
 public class LoadUnload {
-    public static boolean load_plt(Train train, Storages storages)
+    public static boolean load_plt(Train train, Storages storages, boolean debugMode)
     {
         boolean f = false;
         int choise;
@@ -51,6 +51,7 @@ public class LoadUnload {
                                     }
                                 }
                             }
+                            if (debugMode) LogMode.LogWrite("Груз " + liquid.getName() + " массой "+ liquid.getMass() + " загружено на платформу " + numPm + " из склада " + numStrg);
                             break;
                         }
                         catch (Exception e){
@@ -97,6 +98,7 @@ public class LoadUnload {
                                     }
                                 }
                             }
+                            if (debugMode) LogMode.LogWrite("Груз " + grits.getName() + " массой "+ grits.getMass() + " загружено на платформу " + numPm + " из склада " + numStrg);
                             break;
                         }
                         catch (Exception e) {
@@ -142,6 +144,7 @@ public class LoadUnload {
                                     }
                                 }
                             }
+                            if (debugMode) LogMode.LogWrite("Груз " + "Контейнер" + " массой "+container.GetMass() + " загружено на платформу " + numPm + " из склада " + numStrg);
                             break;
                         }
                         catch (Exception e) {
@@ -174,7 +177,7 @@ public class LoadUnload {
                         View.view("Введите номер склада: ");
                         numStrg = Controller.get_int();
                         for (Storage storage: storages.getStorages()){
-                            if (storage.getNum_storage() == numPm) {
+                            if (storage.getNum_storage() == numStrg) {
                                 if (storage instanceof AvtomobileStrg) {
                                     AvtomobileStrg avtomobileStrg = (AvtomobileStrg) storage;
                                     View.view("\nДоступные автомобили: \n");
@@ -190,6 +193,7 @@ public class LoadUnload {
                                                     AvtomobilePm avtomobilePm = (AvtomobilePm) platform;
                                                     try {
                                                         avtomobilePm.load(avtomobile1);
+                                                        if (debugMode) LogMode.LogWrite("Автомобиль " + avtomobile1.getName() + "загружено в платформу " + avtomobilePm.getNum_platform() + " Из склада " + avtomobileStrg.getNum_storage());
                                                         flag = true;
                                                     }
                                                     catch (Exception e) {
@@ -222,7 +226,7 @@ public class LoadUnload {
     }
 
 
-    public static boolean unload_plt(Train train, Storages storages){
+    public static boolean unload_plt(Train train, Storages storages, boolean debugMode){
         boolean f = false;
         int choise;
         do {
@@ -270,6 +274,7 @@ public class LoadUnload {
                                     }
                                 }
                             }
+                            if (debugMode) LogMode.LogWrite("Груз " + liquid.getName() + " массой "+ liquid.getMass() + " загружено из платформы " + numPm + " на склад " + numStrg);
                             break;
                         }
                         catch (Exception e){
@@ -316,6 +321,7 @@ public class LoadUnload {
                                     }
                                 }
                             }
+                            if (debugMode) LogMode.LogWrite("Груз " + grits.getName() + " массой "+ grits.getMass() + " загружено из платформы " + numPm + " на склад " + numStrg);
                             break;
                         }
                         catch (Exception e) {
@@ -361,6 +367,7 @@ public class LoadUnload {
                                     }
                                 }
                             }
+                            if (debugMode) LogMode.LogWrite("Груз " + "Контейнер" + " массой "+container.GetMass() + " загружено из платформы " + numPm + " ны склад " + numStrg);
                             break;
                         }
                         catch (Exception e) {
@@ -408,6 +415,7 @@ public class LoadUnload {
                                                     AvtomobileStrg avtomobileStrg = (AvtomobileStrg) storage;
                                                     try{
                                                         avtomobileStrg.load(avtomobile1);
+                                                        if (debugMode) LogMode.LogWrite("Автомобиль " + avtomobile1.getName() + "загружено из платформы " + avtomobilePm.getNum_platform() + " на склад " + avtomobileStrg.getNum_storage());
                                                         flag = true;
                                                     }
                                                     catch (Exception e) {

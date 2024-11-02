@@ -1,6 +1,10 @@
 package Main;
 
-public class GritsPm extends Platform{
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class GritsPm extends Platform implements SerializableEntity{
     Grits grits;
 
 
@@ -9,6 +13,14 @@ public class GritsPm extends Platform{
         View.view("Введите максимальный грузоподьемность платформы: ");
         super.max_capacity = Controller.get_int();
         super.capacity = 0;
+    }
+
+    public GritsPm (int num_platform, int capacity, int max_capacity, boolean IsLoaded, String name, int mass) {
+        super.max_capacity = max_capacity;
+        super.capacity = capacity;
+        super.num_platform = num_platform;
+        super.IsLoaded = IsLoaded;
+        grits = new Grits(name, mass);
     }
 
     @Override
@@ -37,12 +49,27 @@ public class GritsPm extends Platform{
         else return false;
     }
 
+
     @Override
-    public void DisplayInfo() {
-        View.view("%-37s| %-33s| %-26s |%40s%n",
-                super.num_platform,
-                super.max_capacity,
-                super.capacity,
-                grits.getName());
+    public void SaveToFile(PrintWriter writer) {
+        writer.println("GritsPm");
+        writer.println(super.num_platform);
+        writer.println(super.max_capacity);
+        writer.println(super.capacity);
+        writer.println(super.IsLoaded);
+        writer.println(grits.getName());
+        writer.println(grits.getMass());
+    }
+
+    @Override
+    public void LoadFromFile(BufferedReader reader) throws IOException {
+        super.num_platform = Integer.parseInt(reader.readLine());
+        super.max_capacity = Integer.parseInt(reader.readLine());
+        super.capacity = Integer.parseInt(reader.readLine());
+        super.IsLoaded = Boolean.parseBoolean(reader.readLine());
+        grits = new Grits(
+                reader.readLine(),
+                Integer.parseInt(reader.readLine())
+        );
     }
 }

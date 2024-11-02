@@ -3,7 +3,7 @@ package Main;
 import java.util.LinkedList;
 
 public class Train {
-    private LinkedList<Platform> platforms = new LinkedList<Platform>();
+    private LinkedList<SerializableEntity> platforms = new LinkedList<>();
     private int num_Train;
 
     public Train() {}
@@ -11,7 +11,7 @@ public class Train {
         this.num_Train = num_Train;
     }
 
-    public LinkedList<Platform> getPlatforms() {
+    public LinkedList<SerializableEntity> getPlatforms() {
         return platforms;
     }
 

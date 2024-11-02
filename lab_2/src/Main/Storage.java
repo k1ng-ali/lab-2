@@ -1,8 +1,6 @@
 package Main;
 
-import java.util.LinkedList;
-
-public abstract class Storage implements Icargo{
+public abstract class Storage implements SerializableEntity{
     protected int num_storage;
     protected int capacity;
     protected int max_capacity;

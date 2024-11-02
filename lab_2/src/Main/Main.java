@@ -17,8 +17,9 @@ public class Main {
         User user;
         user = Navigation.main_login(config);
         if (user != null) {
-            Navigation.main_menu(train, storage);
-            View.view("Выход из программы...");
+            if (config.isDebugMode()) LogMode.LogWrite("Вход в программу пользователя: " + user.getUsername());
+            Navigation.main_menu(train, storage, user, config);
+            if (config.isDebugMode()) LogMode.LogWrite("Выход из пограммы пользователья: " + user.getUsername());
         }
         View.view("Выход из программы...");
     }

@@ -1,7 +1,11 @@
 package Main;
 
 
-public class LiquidStrg extends Storage{
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class LiquidStrg extends Storage implements SerializableEntity{
     Liquid liquid;
 
     public LiquidStrg() {
@@ -9,6 +13,13 @@ public class LiquidStrg extends Storage{
         View.view("Введите максимальный вместимость склада: ");
         super.max_capacity = Controller.get_int();
         super.capacity = 0;
+    }
+
+    public LiquidStrg(int num_strg, int max_capacity, int capacity, String name, int mass) {
+        super.num_storage = num_strg;
+        super.capacity = capacity;
+        super.max_capacity = max_capacity;
+        liquid = new Liquid(name, mass);
     }
 
     @Override
@@ -42,12 +53,26 @@ public class LiquidStrg extends Storage{
         else return false;
     }
 
+
     @Override
-    public void DisplayInfo() {
-        View.view("%-37s| %-33s| %-26s |%40s%n",
-                super.num_storage,
-                super.max_capacity,
-                super.capacity,
-                liquid.getName());
+    public void SaveToFile(PrintWriter writer) {
+        writer.println("LiquidStrg");
+        writer.println(super.num_storage);
+        writer.println(super.max_capacity);
+        writer.println(super.capacity);
+        writer.println(liquid.getName());
+        writer.println(liquid.getMass());
+    }
+
+    @Override
+    public void LoadFromFile(BufferedReader reader) throws IOException {
+        super.num_storage = Integer.parseInt(reader.readLine());
+        super.max_capacity = Integer.parseInt(reader.readLine());
+        super.capacity = Integer.parseInt(reader.readLine());
+
+        liquid = new Liquid(
+                reader.readLine(),
+                Integer.parseInt(reader.readLine())
+        );
     }
 }

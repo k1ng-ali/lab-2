@@ -2,7 +2,7 @@ package Main;
 
 import java.util.LinkedList;
 
-public abstract class Platform implements Icargo{
+public abstract class Platform implements SerializableEntity{
     protected int num_platform;
     protected int capacity;
     protected int max_capacity;

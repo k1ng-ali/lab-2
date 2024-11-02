@@ -46,9 +46,13 @@ public class Config{
         return debugMode;
     }
 
+    public void setDebug(boolean debugMode){this.debugMode =  debugMode;}
+
     public boolean isAutotestsMode() {
         return autotestsMode;
     }
+
+    public void setAutotestsMode(boolean autotestsMode){this.autotestsMode = autotestsMode;}
 
     public void addUser(User user) throws IOException {
         if (users.containsKey(user.getUsername())) {
@@ -73,6 +77,59 @@ public class Config{
         props.store(output, null);
         output.close();
     }
+
+    public void AddminSetting(User user) throws IOException
+    {
+        Properties props = new Properties();
+        FileInputStream input = new FileInputStream(filePath);
+        props.load(input);
+        input.close();
+        int choice;
+        do {
+            View.view("Вкл\\выкл режим Отладки . . . . . . . . . . . . 1\n");
+            View.view("Вкл\\выкл режим Автотест. . . . . . . . . . . . 2\n");
+            View.view("Выход . . . . . . . . . . . . . . . . . . . . . 3\n");
+
+            choice = Controller.get_int();
+            switch (choice)
+            {
+                case 1:
+                    if (debugMode){
+                        debugMode = false;
+                        View.view("Режим отладки выключено\n");
+                        LogMode.LogWrite("Пользователь " + user + " выключет режим Отладки");
+                        props.setProperty("debug", "false");
+                    }
+                    else {
+                        debugMode = true;
+                        View.view("Режим отладки включено\n");
+                        LogMode.LogWrite("Пользователь " + user + " включет режим Отладки");
+                        props.setProperty("debug", "true");
+                    }
+                    break;
+                case 2:
+                    if (autotestsMode){
+                        autotestsMode = false;
+                        View.view("Режим автотест выключено\n");
+                        LogMode.LogWrite("Пользователь " + user + " выключет режим Автотест");
+                        props.setProperty("autotests", "false");
+                    }
+                    else {
+                        autotestsMode =  true;
+                        View.view("Режим автотест включено\n");
+                        LogMode.LogWrite("Пользователь " + user + " включет режим Автотест");
+                        props.setProperty("autotests", "true");
+                    }
+                    break;
+                default:
+                    View.view("Ощибка ввода! Введите целое число от 1 до 3 включительно\n");
+            }
+        }while (choice != 3);
+        FileOutputStream output = new FileOutputStream(filePath);
+        props.store(output, null);
+        output.close();
+    }
+
 
 }
 

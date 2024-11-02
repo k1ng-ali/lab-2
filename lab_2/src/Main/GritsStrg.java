@@ -1,6 +1,10 @@
 package Main;
 
-public class GritsStrg extends Storage{
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class GritsStrg extends Storage implements SerializableEntity{
     Grits grits;
 
 
@@ -9,6 +13,13 @@ public class GritsStrg extends Storage{
         View.view("Введите максимальный вместимость склада: ");
         super.max_capacity = Controller.get_int();
         super.capacity = 0;
+    }
+
+    public GritsStrg(int num_strg, int max_capacity, int capacity, String name, int mass) {
+        super.num_storage = num_strg;
+        super.capacity = capacity;
+        super.max_capacity = max_capacity;
+        grits = new Grits(name, mass);
     }
 
     @Override
@@ -38,11 +49,24 @@ public class GritsStrg extends Storage{
     }
 
     @Override
-    public void DisplayInfo() {
-        View.view("%-37s| %-33s| %-26s |%40s%n",
-                super.num_storage,
-                super.max_capacity,
-                super.capacity,
-                grits.getName());
+    public void SaveToFile(PrintWriter writer) {
+        writer.println("GritsStrg");
+        writer.println(super.num_storage);
+        writer.println(super.max_capacity);
+        writer.println(super.capacity);
+        writer.println(grits.getName());
+        writer.println(grits.getMass());
+    }
+
+    @Override
+    public void LoadFromFile(BufferedReader reader) throws IOException {
+        super.num_storage = Integer.parseInt(reader.readLine());
+        super.max_capacity = Integer.parseInt(reader.readLine());
+        super.capacity = Integer.parseInt(reader.readLine());
+
+        grits = new Grits(
+                reader.readLine(),
+                Integer.parseInt(reader.readLine())
+        );
     }
 }

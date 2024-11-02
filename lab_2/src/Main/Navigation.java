@@ -1,7 +1,10 @@
 package Main;
 
+import java.io.IOException;
+import java.util.LinkedList;
+
 public class Navigation {
-    public static User main_login(Config config){
+    public static User main_login(Config config) throws IOException {
         User user;
         int choice;
         do {
@@ -18,14 +21,17 @@ public class Navigation {
                     break;
                 case 2:
                     user = LogIn.register(config);
-                    if (user != null){return user;};
+                    if (user != null){
+                        if (config.isDebugMode()) LogMode.LogWrite("Пользователь "+ user.getUsername() + " Зарегистрирован c правами " + user.getGroup());
+                        return user;
+                    };
                     break;
                 case 3:
                     return null;
             }
         }while (true);
     }
-    public static void main_menu(Train train, Storages strg){
+    public static void main_menu(Train train, Storages strg, User user, Config config) throws IOException {
         int choise;
         do {
             int num_pm, num_strg, capacity;
@@ -37,7 +43,10 @@ public class Navigation {
             View.view("Добавить автомобилья на склад. . . . . . . . . . . . . . . . 5\n");
             View.view("Загрузить груз на платформу. . . . . . . . . . . . . . . . . 6\n");
             View.view("Разгрузить груз из платформы . . . . . . . . . . . . . . . . 7\n");
-            View.view("Выход из программы . . . . . . . . . . . . . . . . . . . . . 8\n");
+            View.view("Настройка админа . . . . . . . . . . . . . . . . . . . . . . 8\n");
+            View.view("Сохранить данные на файл . . . . . . . . . . . . . . . . . . 9\n");
+            View.view("Загрузить данные из файла. . . . . . . . . . . . . . . . . .10\n");
+            View.view("Выход из программы . . . . . . . . . . . . . . . . . . . . .11\n");
             View.view("\nВыберите действие: ");
 
             choise = Controller.get_int();
@@ -50,36 +59,63 @@ public class Navigation {
                     ViewInfo.info_strg(strg);
                     break;
                 case 3:
-                    AddObject.add_platform(train);
+                    AddObject.add_platform(train, config.isDebugMode(), user);
                     break;
                 case 4:
-                    AddObject.add_storage(strg);
+                    AddObject.add_storage(strg, config.isDebugMode(), user );
                     break;
                 case 5:
                     try {
-                        AddObject.add_avto(strg);
+                        AddObject.add_avto(strg, config.isDebugMode(), user);
                     }
                     catch (Exception e)
                     {View.view(e.getMessage());}
                     break;
                 case 6:
                     try {
-                        LoadUnload.load_plt(train, strg);
+                        LoadUnload.load_plt(train, strg, config.isDebugMode());
                     }
                     catch (Exception e)
                     {View.view(e.getMessage());}
                     break;
                 case 7:
                     try{
-                        LoadUnload.unload_plt(train, strg);
+                        LoadUnload.unload_plt(train, strg, config.isDebugMode());
                     }
                     catch (Exception e)
                     {View.view(e.getMessage());}
                     break;
+                case 8:
+                    View.view(user.getGroup());
+                    if (user.getGroup().equalsIgnoreCase("root")){
+                        config.AddminSetting(user);
+                    }
+                    else{
+                        View.view("Вы не являетесь админстратором");
+                    }
+                    break;
+                case 9:
+                    try {
+                        FileManeger.SaveAll(train.getPlatforms(), "train.txt");
+                        FileManeger.SaveAll(strg.getStorages(), "strg.txt");
+                        View.view("Успещно сохранено!\n");
+                    }
+                    catch (Exception e)
+                        {View.view(e.getMessage());}
+                    break;
+                case 10:
+                    try {
+                        LinkedList<SerializableEntity> platforms = FileManeger.LoadAll("train.txt");
+                        for (SerializableEntity platform : platforms)
+                        {
+                            train.add_platform(platform);
+                        }
+                    }
+
                 default:
-                    View.view("Ощибка ввода! Введите целое число от 1 до 7 включительно\n");
+                    View.view("Ощибка ввода! Введите целое число от 1 до 11 включительно\n");
 
             }
-        }while(choise != 8);
+        }while(choise != 11);
     }
 }
