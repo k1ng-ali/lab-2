@@ -1,5 +1,4 @@
 package Main;
-
 import java.io.IOException;
 
 // 1 РАЗРАБОТАВАТЬ МЕТОД ДОБАВЛЕНИЕ АВТОМОЬИЛЯ НА СКЛАД

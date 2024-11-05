@@ -30,4 +30,6 @@ public abstract class Storage implements SerializableEntity{
     public  int getNum_storage(){
         return num_storage;
     };
+
+    public void DisplayInfo(){};
 }

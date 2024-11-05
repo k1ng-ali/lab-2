@@ -53,6 +53,15 @@ public class LiquidStrg extends Storage implements SerializableEntity{
         else return false;
     }
 
+    @Override
+    public void DisplayInfo() {
+        View.view("%-37s| %-33s| %-26s |%40s%n",
+                super.num_storage,
+                super.max_capacity,
+                super.capacity,
+                GetTypeCargo());
+    }
+
 
     @Override
     public void SaveToFile(PrintWriter writer) {

@@ -49,6 +49,16 @@ public class LiquidPm extends Platform implements SerializableEntity{
     }
 
     @Override
+    public void DisplayInfo() {
+        View.view("%-37s| %-33s| %-26s |%40s%n",
+                super.num_platform,
+                super.max_capacity,
+                super.capacity,
+                GetTypeCargo());
+    }
+
+
+    @Override
     public void SaveToFile(PrintWriter writer) {
         writer.println("LiquidPm");
         writer.println(super.num_platform);

@@ -2,15 +2,15 @@ package Main;
 
 import java.util.LinkedList;
 
-public abstract class Storages{
-    private LinkedList<SerializableEntity> storages = new LinkedList<>();
+public class Storages{
+    private LinkedList<Storage> storages = new LinkedList<>();
 
     public Storages() {}
-    public Storages(LinkedList<SerializableEntity> storages) {
+    public Storages(LinkedList<Storage> storages) {
         this.storages = storages;
     }
 
-    public LinkedList<SerializableEntity> getStorages() {
+    public LinkedList<Storage> getStorages() {
         return storages;
     }
 
@@ -21,5 +21,4 @@ public abstract class Storages{
     public void remove_storage(Storage storage) {
         storages.remove(storage);
     }
-
 }

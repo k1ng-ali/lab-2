@@ -31,4 +31,6 @@ public abstract class Platform implements SerializableEntity{
     public int getNum_platform(){
         return this.num_platform;
     };
+
+    public void DisplayInfo(){};
 }

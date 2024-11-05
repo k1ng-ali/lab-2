@@ -1,5 +1,4 @@
 package Main;
-
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -108,8 +107,23 @@ public class Navigation {
                         LinkedList<SerializableEntity> platforms = FileManeger.LoadAll("train.txt");
                         for (SerializableEntity platform : platforms)
                         {
-                            train.add_platform(platform);
+                            train.add_platform((Platform) platform);
                         }
+                        View.view("Успещно загружено!\n");
+                    }
+                    catch (Exception e){
+                        View.view(e.getMessage());
+                    }
+                    try {
+                        LinkedList<SerializableEntity> storages = FileManeger.LoadAll("strg.txt");
+                        for (SerializableEntity storage : storages)
+                        {
+                            strg.add_storage((Storage) storage);
+                        }
+                        View.view("Успещно загружено!\n");
+                    }
+                    catch (Exception e){
+                        View.view(e.getMessage());
                     }
 
                 default:

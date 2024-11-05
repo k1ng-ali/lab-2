@@ -45,6 +45,16 @@ public class ContainerPm extends Platform implements  SerializableEntity{
         else return false;
     }
 
+    @Override
+    public void DisplayInfo() {
+        View.view("%-37s| %-33s| %-26s |%40s%n",
+                super.num_platform,
+                super.max_capacity,
+                super.capacity,
+                GetTypeCargo());
+    }
+
+
 
     @Override
     public void SaveToFile(PrintWriter writer) {

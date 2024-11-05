@@ -45,6 +45,15 @@ public class ContainerStrg extends Storage implements SerializableEntity{
     }
 
     @Override
+    public void DisplayInfo() {
+        View.view("%-37s| %-33s| %-26s |%40s%n",
+                super.num_storage,
+                super.max_capacity,
+                super.capacity,
+                GetTypeCargo());
+    }
+
+    @Override
     public void SaveToFile(PrintWriter writer) {
         writer.println("ContainerStrg");
         writer.println(super.num_storage);
