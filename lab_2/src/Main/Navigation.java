@@ -32,6 +32,8 @@ public class Navigation {
     }
     public static void main_menu(Train train, Storages strg, User user, Config config) throws IOException {
         int choise;
+        boolean append = true;
+        boolean datas = true;
         do {
             int num_pm, num_strg, capacity;
             String cargo;
@@ -95,35 +97,38 @@ public class Navigation {
                     break;
                 case 9:
                     try {
-                        FileManeger.SaveAll(train.getPlatforms(), "train.txt");
-                        FileManeger.SaveAll(strg.getStorages(), "strg.txt");
+                        FileManeger.SaveAll(train.getPlatforms(), "train.txt", append);
+                        FileManeger.SaveAll(strg.getStorages(), "strg.txt", append);
                         View.view("Успещно сохранено!\n");
                     }
                     catch (Exception e)
                         {View.view(e.getMessage());}
                     break;
                 case 10:
-                    try {
-                        LinkedList<SerializableEntity> platforms = FileManeger.LoadAll("train.txt");
-                        for (SerializableEntity platform : platforms)
-                        {
-                            train.add_platform((Platform) platform);
+                    if (datas) {
+                        try {
+                            LinkedList<SerializableEntity> platforms = FileManeger.LoadAll("train.txt");
+                            for (SerializableEntity platform : platforms) {
+                                train.add_platform((Platform) platform);
+                            }
+                            View.view("Успещно загружено!\n");
+                        } catch (Exception e) {
+                            View.view(e.getMessage());
                         }
-                        View.view("Успещно загружено!\n");
-                    }
-                    catch (Exception e){
-                        View.view(e.getMessage());
-                    }
-                    try {
-                        LinkedList<SerializableEntity> storages = FileManeger.LoadAll("strg.txt");
-                        for (SerializableEntity storage : storages)
-                        {
-                            strg.add_storage((Storage) storage);
+                        try {
+                            LinkedList<SerializableEntity> storages = FileManeger.LoadAll("strg.txt");
+                            for (SerializableEntity storage : storages) {
+                                strg.add_storage((Storage) storage);
+                            }
+                            View.view("Успещно загружено!\n");
+                            append = false;
+                            datas = false;
+                        } catch (Exception e) {
+                            View.view(e.getMessage());
                         }
-                        View.view("Успещно загружено!\n");
                     }
-                    catch (Exception e){
-                        View.view(e.getMessage());
+                    else {
+                        View.view("Данные уже загружены!");
                     }
 
                 default:

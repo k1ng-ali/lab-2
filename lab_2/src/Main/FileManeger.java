@@ -4,8 +4,9 @@ import java.io.*;
 import java.util.LinkedList;
 
 public class FileManeger {
-    public static <T extends SerializableEntity> void SaveAll(LinkedList<T> elements, String fileName) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+    public static <T extends SerializableEntity> void SaveAll(LinkedList<T> elements, String fileName,
+                                                              boolean append) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, append))) {
             for (T element : elements) {
                 element.SaveToFile(writer);
                 writer.println("---");

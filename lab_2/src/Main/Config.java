@@ -1,5 +1,6 @@
 package Main;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,10 @@ public class Config{
     public Config(String filePath) throws IOException {
         this.filePath = filePath;
         Properties props = new Properties();
+        File configFile = new File(filePath);
+        if(!configFile.exists()){
+            configFile.createNewFile();
+        }
         FileInputStream input = new FileInputStream(filePath);
         props.load(input);
 
@@ -76,6 +81,21 @@ public class Config{
         FileOutputStream output = new FileOutputStream(filePath);
         props.store(output, null);
         output.close();
+    }
+
+    public void deleteUser(User user) throws IOException {
+        Properties props = new Properties();
+        FileInputStream input = new FileInputStream(filePath);
+        props.load(input);
+        input.close();
+
+        int userIndex = users.size();
+
+        props.remove(props.getProperty("user" + userIndex + ".username", user.getUsername()));
+        props.remove(props.getProperty("user" + userIndex + ".password", user.getPassword()));
+        props.remove(props.getProperty("user" + userIndex + ".group", user.getGroup()));
+
+        users.remove(user.getUsername());
     }
 
     public void AddminSetting(User user) throws IOException

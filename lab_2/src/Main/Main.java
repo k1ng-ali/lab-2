@@ -14,11 +14,13 @@ public class Main {
         Storages storage = new Storages();
         Config config = new Config("config.properties");
         User user;
+
         user = Navigation.main_login(config);
         if (user != null) {
-            if (config.isDebugMode()) LogMode.LogWrite("Вход в программу пользователя: " + user.getUsername());
+            LogMode logMode = new LogMode(user);
+            if (config.isDebugMode()) logMode.LogWrite("Вход в программу");
             Navigation.main_menu(train, storage, user, config);
-            if (config.isDebugMode()) LogMode.LogWrite("Выход из пограммы пользователья: " + user.getUsername());
+            if (config.isDebugMode()) logMode.LogWrite("Выход из пограммы");
         }
         View.view("Выход из программы...");
     }

@@ -16,5 +16,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="junit.jupiter" level="project" />
+    <orderEntry type="library" name="junit.platform.launcher1" level="application" />
+    <orderEntry type="library" exported="" name="junit.platform.engine" level="project" />
+    <orderEntry type="library" name="junit.platform.launcher" level="project" />
   </component>
 </module>
