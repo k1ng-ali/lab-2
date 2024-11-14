@@ -1,0 +1,21 @@
+
+Start program: Thu Nov 14 02:59:42 MSK 2024
+LinkkedList_10
+add ID = 0 214700
+add ID = 1 7800
+add ID = 2 2300
+add ID = 3 6200
+add ID = 4 2500
+add ID = 5 2200
+add ID = 6 2500
+add ID = 7 2900
+add ID = 8 4800
+add ID = 9 2600
+addTotalCount = 10
+addTotalTime = 248500
+addMedianTime = 24850
+remove ID = 2 23900
+removeTotalCount = 1
+removeTotalTime = 23900
+removeMedianTime = 23900
+Finish program: Thu Nov 14 02:59:42 MSK 2024

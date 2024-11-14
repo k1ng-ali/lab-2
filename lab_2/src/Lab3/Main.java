@@ -24,7 +24,7 @@ public class Main {
 
     // Метод для выполнения экспериментов
     public static void runExperiment(String collectionType, Collection<Train> collection, int count_el) throws IOException {
-        FileWriter logWriter = new FileWriter(collectionType + count_el + "_log.txt", true);
+        FileWriter logWriter = new FileWriter(collectionType + count_el + "_log.txt", false);
 
         logWriter.write("\nStart program: " + new Date() + "\n");
         logWriter.write(collectionType + count_el +"\n");

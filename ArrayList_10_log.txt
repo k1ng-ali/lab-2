@@ -1,0 +1,21 @@
+
+Start program: Thu Nov 14 02:59:42 MSK 2024
+ArrayList_10
+add ID = 0 1867000
+add ID = 1 8600
+add ID = 2 2300
+add ID = 3 2200
+add ID = 4 1900
+add ID = 5 5800
+add ID = 6 4000
+add ID = 7 1700
+add ID = 8 1600
+add ID = 9 1700
+addTotalCount = 10
+addTotalTime = 1896800
+addMedianTime = 189680
+remove ID = 6 13200
+removeTotalCount = 1
+removeTotalTime = 13200
+removeMedianTime = 13200
+Finish program: Thu Nov 14 02:59:42 MSK 2024

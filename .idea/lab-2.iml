@@ -8,5 +8,6 @@
     <orderEntry type="library" name="junit.platform.launcher" level="project" />
     <orderEntry type="library" name="junit.platform.launcher1" level="application" />
     <orderEntry type="library" name="junit.platform.engine" level="project" />
+    <orderEntry type="library" name="jfree.jfreechart" level="project" />
   </component>
 </module>
